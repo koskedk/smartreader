@@ -1,0 +1,6 @@
+@SmartReader_HostAddress = http://localhost:5262
+
+GET {{SmartReader_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
