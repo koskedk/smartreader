@@ -18,7 +18,7 @@ namespace SmartReader.Central.Controllers
         }
 
         [HttpPost("Patient")]
-        public async Task<IActionResult> Patient(List<Patient> patients)
+        public async Task<IActionResult> Patient([FromBody] List<Patient> patients)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace SmartReader.Central.Controllers
             }
         }
         [HttpPost("Pharmacy")]
-        public async Task<IActionResult> Pharmacy(List<Pharmacy> pharmacies)
+        public async Task<IActionResult> Pharmacy([FromBody] List<Pharmacy> pharmacies)
         {
             
             try
@@ -53,7 +53,7 @@ namespace SmartReader.Central.Controllers
             }
         }
         [HttpPost("Visit")]
-        public async Task<IActionResult> Visit(List<Visit> visits)
+        public async Task<IActionResult> Visit([FromBody] List<Visit> visits)
         {
            
             try

@@ -97,4 +97,11 @@ public class SourceReaderTests
         var exh=ct.Database.GetDbConnection().Query<ExtractHistory>($"select * from {nameof(SmartReaderDbContext.ExtractHistories)}").First(x => x.ExtractId == extractId);
         return exh;
     }
+    //
+    // [Test,Order(199)]
+    // public async Task should_Purge()
+    // {
+    //     await _reader!.Purge(CancellationToken.None);
+    //     Assert.That(GetHistory(), Is.EqualTo(0));
+    // }
 }

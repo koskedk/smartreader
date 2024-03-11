@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SmartReader.Core.Application.Interfaces;
 using SmartReader.Core.Domain;
 using SmartReader.Core.Domain.Events;
@@ -27,6 +28,11 @@ public class SendService : ISendService
 
     public async Task<Result> Send<T>(Registry registry, Extract extract, int batchSize, CancellationToken cancellationToken)
     {
+        DefaultContractResolver contractResolver = new DefaultContractResolver
+        {
+            NamingStrategy = new CamelCaseNamingStrategy()
+        };
+        
         var url = $"{registry.Url}{extract.EndPoint}";
         var connectionString = _context.Database.GetConnectionString();
         int totalCount = 0;
@@ -50,7 +56,11 @@ public class SendService : ISendService
                             if (count == batchSize)
                             {
                                 // send
-                                var content = JsonConvert.SerializeObject(package);
+                                var content = JsonConvert.SerializeObject(package,new JsonSerializerSettings
+                                {
+                                    ContractResolver = contractResolver,
+                                    Formatting = Formatting.Indented
+                                });
                                 var res = await _httpClient.PostAsJsonAsync(url, content, cancellationToken);
                                 if (res.IsSuccessStatusCode)
                                 {
@@ -79,8 +89,14 @@ public class SendService : ISendService
 
                         if (count > 0)
                         {
+                            
                             // send
-                            var content = JsonConvert.SerializeObject(package);
+                            var content = JsonConvert.SerializeObject(new {patients=package},
+                                new JsonSerializerSettings
+                                {
+                                    ContractResolver = contractResolver,
+                                    Formatting = Formatting.Indented
+                                });
                             var res = await _httpClient.PostAsJsonAsync(url, content, cancellationToken);
                             if (res.IsSuccessStatusCode)
                             {

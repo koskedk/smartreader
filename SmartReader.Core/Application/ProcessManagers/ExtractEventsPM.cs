@@ -5,7 +5,7 @@ using SmartReader.Core.Domain.Events;
 namespace SmartReader.Core.Application.ProcessManagers;
 
 public class ExtractEventsPm:
-    INotificationHandler<ExtractsSendingStarted>,
+    INotificationHandler<ExtractsScanningStarted>,
     INotificationHandler<ExtractSent>,
     INotificationHandler<ExtractScanned>,
     INotificationHandler<ExtractSendFail>
@@ -16,12 +16,12 @@ public class ExtractEventsPm:
     {
         _mediator = mediator;
     }
-
-    public async Task Handle(ExtractsSendingStarted notification, CancellationToken cancellationToken)
+    
+    public async Task Handle(ExtractsScanningStarted notification, CancellationToken cancellationToken)
     {
         await _mediator.Send(new UpdateHistory(Commands.Action.OnInit), cancellationToken);
     }
-
+    
     public async Task Handle(ExtractSent notification, CancellationToken cancellationToken)
     {
         await _mediator.Send(new UpdateHistory(Commands.Action.OnSend,notification.Id,notification.Count), cancellationToken);
@@ -36,4 +36,6 @@ public class ExtractEventsPm:
     {
         await _mediator.Send(new UpdateHistory(Commands.Action.OnScan,notification.Id,notification.Count), cancellationToken);
     }
+
+    
 }

@@ -141,6 +141,28 @@ public class SourceReader:ISourceReader
         }
     }
 
+    public async Task Purge(CancellationToken cancellationToken)
+    {
+        var tables = new List<string>()
+        {
+            nameof(SmartReaderDbContext.ExtractHistories),
+            nameof(SmartReaderDbContext.PatientPharmacies),
+            nameof(SmartReaderDbContext.PatientVisits),
+            nameof(SmartReaderDbContext.Patients)
+        };
+        var scb = new StringBuilder();
+        tables.ForEach(s => scb.AppendLine($"truncate table {s}; "));
+
+        if (_context.Database.IsMySql())
+        {
+            using (var cn = new MySqlConnection(_context.Database.GetConnectionString()))
+            {
+                await cn.OpenAsync(cancellationToken);
+                await cn.ExecuteAsync(scb.ToString(), commandTimeout: 0);
+            }
+        }
+    }
+
     private MySqlDataReader GetMySqlDataReader(string commandSql)
     {
         var cn =new MySqlConnection(_context.Database.GetConnectionString());

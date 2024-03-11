@@ -2,6 +2,7 @@ using CSharpFunctionalExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using SmartReader.Core.Application.Dtos;
 using SmartReader.Core.Application.Interfaces;
 using SmartReader.Core.Domain.Ct;
 using SmartReader.Core.Domain.Events;
@@ -17,6 +18,11 @@ public class SendExtracts:IRequest<Result>
     {
         RegistryId = registryId;
         BatchSize = batchSize;
+    }
+
+    public SendExtracts(SendDto dto)
+    :this(dto.Registry,dto.BatchSize)
+    {
     }
 }
 

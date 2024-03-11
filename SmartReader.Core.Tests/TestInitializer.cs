@@ -52,6 +52,7 @@ public class TestInitializer
         ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.Patients)}");
         ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.PatientVisits)}");
         ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.PatientPharmacies)}");
+        ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.ExtractHistories)}");
     }
     
     private  static void AddTestData()

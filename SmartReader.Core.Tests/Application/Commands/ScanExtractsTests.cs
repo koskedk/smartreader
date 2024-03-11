@@ -16,7 +16,7 @@ public class ScanExtractsTests
     }
 
     [TestCase(1)]
-    public async Task Should_Scan(int registry)
+    public async Task should_Scan(int registry)
     {
         var res= await _mediatr.Send(new ScanExtracts());
         Assert.That(res.IsSuccess);

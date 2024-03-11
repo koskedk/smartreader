@@ -32,7 +32,6 @@ public class ScanExtractsHandler : IRequestHandler<ScanExtracts, Result>
             
             await _mediator.Publish(new ExtractsScanningStarted(extracts.Count),cancellationToken);
             
-            
             foreach (var extract in extracts)
             {
                 var count = await _reader.GetCount(extract, cancellationToken);

@@ -1,11 +1,12 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using SmartReader.Core.Application.Commands;
+using SmartReader.Core.Application.Queries;
 
-namespace SmartReader.Core.Tests.Application.Commands;
+namespace SmartReader.Core.Tests.Application.Queries;
 
 [TestFixture]
-public class SendExtractsTests
+public class GetHistoryTests
 {
     private IMediator _mediatr;
 
@@ -15,10 +16,13 @@ public class SendExtractsTests
         _mediatr = TestInitializer.ServiceProvider.GetRequiredService<IMediator>();
     }
 
-    [TestCase(1)]
-    public async Task should_Send(int registry)
+    [Test]
+    public async Task Should_Get()
     {
-        var res= await _mediatr.Send(new SendExtracts(registry,5));
+        await _mediatr.Send(new ScanExtracts());
+        
+        var res= await _mediatr.Send(new GetHistory());
         Assert.That(res.IsSuccess);
+        Assert.That(res.Value.Any);
     }
 }

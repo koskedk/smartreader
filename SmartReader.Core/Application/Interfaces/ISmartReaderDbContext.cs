@@ -14,6 +14,7 @@ public interface ISmartReaderDbContext
     DbSet<Patient> Patients { get; }
     DbSet<PatientPharmacy> PatientPharmacies { get; }
     DbSet<PatientVisit> PatientVisits { get; }
-    
+
+    Task BulkInsert<T>(List<T> entities);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

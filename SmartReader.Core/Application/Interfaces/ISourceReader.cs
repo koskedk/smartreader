@@ -13,4 +13,5 @@ public interface ISourceReader
     Task UpdateLoadHistory(int extractId, long count);
     Task UpdateSentHistory(int extractId, long count);
     Task UpdateStatusHistory(int extractId, string status);
+    Task Purge(CancellationToken cancellationToken);
 }
