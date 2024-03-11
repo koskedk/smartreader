@@ -27,7 +27,7 @@ public static class DependencyInjection
         services.AddScoped<SmartReaderDbContextInitializer>();
         services.AddScoped<ISourceReader, SourceReader>();
         services.AddScoped<ISendService, SendService>();
-       // services.AddHttpClient();
+        services.AddHttpClient();
         
         return services;
     }

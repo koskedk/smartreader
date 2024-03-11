@@ -3,7 +3,6 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Serilog;
 using SmartReader.Core;
 using SmartReader.Data.Tests.TestArtifacts;
@@ -53,6 +52,7 @@ public class TestInitializer
         ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.Patients)}");
         ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.PatientVisits)}");
         ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.PatientPharmacies)}");
+        ct.Database.GetDbConnection().Execute($"truncate table {nameof(ct.ExtractHistories)}");
     }
     
     private  static void AddTestData()

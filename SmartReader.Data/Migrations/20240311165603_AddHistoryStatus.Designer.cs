@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartReader.Data;
 
@@ -11,9 +12,11 @@ using SmartReader.Data;
 namespace SmartReader.Data.Migrations
 {
     [DbContext(typeof(SmartReaderDbContext))]
-    partial class SmartReaderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311165603_AddHistoryStatus")]
+    partial class AddHistoryStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

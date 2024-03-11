@@ -10,6 +10,7 @@ public class SmartReaderDbContext:DbContext, ISmartReaderDbContext
     public DbSet<Registry> Registries => Set<Registry>();
     public DbSet<Extract> Extracts => Set<Extract>();
     public DbSet<Config> Configs => Set<Config>();
+    public DbSet<ExtractHistory> ExtractHistories => Set<ExtractHistory>();
     
     public DbSet<Patient> Patients => Set<Patient>();
     public DbSet<PatientPharmacy> PatientPharmacies => Set<PatientPharmacy>();

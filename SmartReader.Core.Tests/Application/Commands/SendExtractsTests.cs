@@ -18,7 +18,7 @@ public class SendExtractsTests
     [TestCase(1)]
     public async Task Should_Send(int registry)
     {
-        var res= await _mediatr.Send(new SendExtracts(registry));
+        var res= await _mediatr.Send(new SendExtracts(registry,5));
         Assert.That(res.IsSuccess);
     }
 }

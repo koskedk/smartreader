@@ -2,7 +2,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartReader.Core.Application.Interfaces;
 using SmartReader.Core.Domain;
 using SmartReader.Core.Domain.Ct;
-using SmartReader.Data.Tests.TestArtifacts;
 
 namespace SmartReader.Data.Tests.Services;
 

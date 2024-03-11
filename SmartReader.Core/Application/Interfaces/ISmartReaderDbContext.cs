@@ -9,6 +9,7 @@ public interface ISmartReaderDbContext
     DbSet<Registry> Registries { get; }
     DbSet<Extract> Extracts { get; }
     DbSet<Config> Configs { get; }
+    DbSet<ExtractHistory> ExtractHistories  { get; }
     
     DbSet<Patient> Patients { get; }
     DbSet<PatientPharmacy> PatientPharmacies { get; }

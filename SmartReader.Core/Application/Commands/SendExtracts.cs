@@ -11,10 +11,12 @@ namespace SmartReader.Core.Application.Commands;
 public class SendExtracts:IRequest<Result>
 {
     public int RegistryId { get; }
+    public int? BatchSize { get; }
 
-    public SendExtracts(int registryId)
+    public SendExtracts(int registryId,int? batchSize=null)
     {
         RegistryId = registryId;
+        BatchSize = batchSize;
     }
 }
 
@@ -23,12 +25,14 @@ public class SendExtractHandler:IRequestHandler<SendExtracts,Result>
     private readonly IMediator _mediator;
     private readonly ISmartReaderDbContext _context;
     private readonly ISendService _sendService;
+    private readonly ISourceReader _sourceReader;
 
-    public SendExtractHandler(IMediator mediator, ISmartReaderDbContext context, ISendService sendService)
+    public SendExtractHandler(IMediator mediator, ISmartReaderDbContext context, ISendService sendService, ISourceReader sourceReader)
     {
         _mediator = mediator;
         _context = context;
         _sendService = sendService;
+        _sourceReader = sourceReader;
     }
 
     public async Task<Result> Handle(SendExtracts request, CancellationToken cancellationToken)
@@ -39,6 +43,10 @@ public class SendExtractHandler:IRequestHandler<SendExtracts,Result>
             var configs = _context.Configs.AsNoTracking().ToList();
             var batch = configs.FirstOrDefault(x => x.Id.ToLower() == "send.batch.size".ToLower());
             int batchSize = batch?.GetNumericValue() ?? 100;
+            
+            if (request.BatchSize.HasValue)
+                batchSize = request.BatchSize.Value;
+
             
             // registry 
             var registry =await  _context.Registries.FindAsync(request.RegistryId);

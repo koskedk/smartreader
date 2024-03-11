@@ -30,4 +30,8 @@
     <ProjectReference Include="..\SmartReader.Data\SmartReader.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
